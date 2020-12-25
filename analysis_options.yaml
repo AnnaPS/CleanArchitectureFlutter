@@ -1,0 +1,5 @@
+include: package:pedantic/analysis_options.yaml
+
+analyze:
+  errors:
+    missing_required_param: error

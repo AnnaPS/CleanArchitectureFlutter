@@ -1,4 +1,5 @@
 import 'package:clean_architecture_app/presentation/providers/data_provider.dart';
+import 'package:clean_architecture_app/presentation/widgets/home_widgets/episode_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -28,13 +29,17 @@ class _MyHomePageState extends State<MyHomePage> {
                       ? Center(
                           child: Text('Empty list'),
                         )
-                      : ListView.builder(
-                          itemBuilder: (_, index) {
-                            return ListTile(
-                              title: Text(snapshot.episodes[index].name),
-                            );
-                          },
-                          itemCount: snapshot.episodes.length,
+                      : Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0, vertical: 8),
+                          child: ListView.builder(
+                            itemCount: snapshot.episodes.length,
+                            itemBuilder: (context, index) {
+                              return EpisodeCardWidget(
+                                snapshot.episodes[index],
+                              );
+                            },
+                          ),
                         );
         },
       ),

@@ -10,9 +10,10 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => GetIt.I<DataProvider>()..getEpisodes(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Clean Architecture with Flutter',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.green,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: MyHomePage(),

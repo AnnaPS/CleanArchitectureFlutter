@@ -1,11 +1,10 @@
-import 'package:clean_architecture_app/data/models/episodes_page.dart';
 import 'package:clean_architecture_app/presentation/providers/data_provider.dart';
+import 'package:clean_architecture_app/presentation/widgets/detail_episode_widgets/footer_detail_widget.dart';
 import 'package:flutter/material.dart';
 
 class DetailItemWidget extends StatelessWidget {
-  DetailItemWidget(@required this._episod, @required this._dataProvider);
-  Result _episod;
-  DataProvider _dataProvider;
+  DetailItemWidget(this._dataProvider);
+  final DataProvider _dataProvider;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +22,7 @@ class DetailItemWidget extends StatelessWidget {
                   ? InkWell(
                       onTap: () {
                         _dataProvider.getCharacterSelected(index);
-                        print('${_dataProvider.characterSelected}');
+                        _dataProvider.changeContainerSize(150, 150);
                       },
                       child: Column(
                         children: [
@@ -43,57 +42,12 @@ class DetailItemWidget extends StatelessWidget {
             },
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
-          child: Text(
-            _dataProvider
-                .characterFromEpisode[_dataProvider.characterSelected].name,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
-          ),
-        ),
-        Row(
-          children: [
-            _buildChip(
-                _dataProvider
-                    .characterFromEpisode[_dataProvider.characterSelected]
-                    .species,
-                Colors.green),
-            _buildChip(
-                _dataProvider
-                    .characterFromEpisode[_dataProvider.characterSelected]
-                    .gender,
-                Colors.orange),
-            _buildChip(
-                _dataProvider
-                    .characterFromEpisode[_dataProvider.characterSelected]
-                    .status,
-                Colors.blue),
-          ],
-        ),
+        FooterDetailWidget(_dataProvider)
       ],
     );
   }
-
-  Widget _buildChip(String label, Color color) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Chip(
-        labelPadding: EdgeInsets.all(2.0),
-        avatar: CircleAvatar(
-          backgroundColor: Colors.white70,
-          child: Text(label[0].toUpperCase()),
-        ),
-        label: Text(
-          label,
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: color,
-        elevation: 6.0,
-        shadowColor: Colors.grey[60],
-        padding: EdgeInsets.all(8.0),
-      ),
-    );
-  }
 }
+// height: _dataProvider.heightContainer,
+//                         width: _dataProvider.widthContainer,
+//                         duration: Duration(milliseconds: 500),
+//                         curve: Curves.easeOut,

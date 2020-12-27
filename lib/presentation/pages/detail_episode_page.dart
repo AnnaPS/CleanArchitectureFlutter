@@ -32,9 +32,20 @@ class _DetailEpisodePageState extends State<DetailEpisodePage> {
       ),
       body: dataProvider.characterFromEpisode != null
           ? Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                HeaderDetailWidget(widget._episod, dataProvider),
-                DetailItemWidget(widget._episod, dataProvider),
+                HeaderDetailWidget(widget._episod),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text(
+                    'Characters',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 26,
+                    ),
+                  ),
+                ),
+                DetailItemWidget(dataProvider),
               ],
             )
           : CircularProgressIndicator(),

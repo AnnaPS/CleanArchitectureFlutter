@@ -1,11 +1,9 @@
 import 'package:clean_architecture_app/data/models/episodes_page.dart';
-import 'package:clean_architecture_app/presentation/providers/data_provider.dart';
 import 'package:flutter/material.dart';
 
 class HeaderDetailWidget extends StatelessWidget {
-  HeaderDetailWidget(@required this._epidod, @required this._dataProvider);
-  Result _epidod;
-  DataProvider _dataProvider;
+  HeaderDetailWidget(this._epidod);
+  final Result _epidod;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -45,7 +43,7 @@ class HeaderDetailWidget extends StatelessWidget {
                 _epidod.episode,
                 style: TextStyle(fontWeight: FontWeight.normal, fontSize: 16),
                 overflow: TextOverflow.clip,
-              )
+              ),
             ],
           )
         ],

@@ -1,3 +1,4 @@
+import 'package:clean_architecture_app/data/models/characters.dart';
 import 'package:clean_architecture_app/data/service/data_api_service.dart';
 import 'package:clean_architecture_app/data/models/episodes_page.dart';
 import 'package:clean_architecture_app/data/repository/data_repository.dart';
@@ -9,5 +10,10 @@ class DataRepositoryImpl extends DataRepository {
   @override
   Future<EpisodePage> getEpisodePage() async {
     return await _apiService.getEpisodePage();
+  }
+
+  @override
+  Future<Character> getCharactersFromEpisode(String url) async {
+    return await _apiService.getCharactersFromEpisode(url);
   }
 }

@@ -36,7 +36,7 @@ class EpisodeCardWidget extends StatelessWidget {
           ),
           child: Stack(
             children: [
-              ImageCardWidget(),
+              ImageCardWidget(_episod),
               CardTitleWidget(_episod),
               CardSubtitleWidget(_episod),
             ],

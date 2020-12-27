@@ -16,13 +16,16 @@ class DataProvider extends ChangeNotifier {
   String _errorMessage;
 
   EpisodePage get episodePage => _episodePage;
-  String get errorMessage => _errorMessage;
-
   List<Result> get episodes => _episodePage.results;
+
+  String get errorMessage => _errorMessage;
   String get errorEpisodes => _errorMessage;
 
-  Character _character;
-  Character get characterFromEpisode => _character;
+  final List<Character> _characters = [];
+  List<Character> get characterFromEpisode => _characters;
+
+  int _selectedCharacter = 0;
+  int get characterSelected => _selectedCharacter;
 
   void getEpisodes() async {
     try {
@@ -35,16 +38,23 @@ class DataProvider extends ChangeNotifier {
     }
   }
 
-  void getCharacterFromEpisode(List<String> urls) {
+  void getCharacterFromEpisode(List<String> urls) async {
     try {
-      urls.forEach((element) async {
-        _character = await _getCharacterFromEpisodeUC.invoke(element);
-      });
-      notifyListeners();
+      final charactersFuture = urls.map((e) async {
+        return await _getCharacterFromEpisodeUC.invoke(e);
+      }).toList();
+
+      final myCharacters = await Future.wait(charactersFuture);
+      _characters.addAll(myCharacters);
     } catch (e) {
       _errorMessage = 'error: ${e.toString()}';
     } finally {
       notifyListeners();
     }
+  }
+
+  void getCharacterSelected(int selected) {
+    _selectedCharacter = selected;
+    notifyListeners();
   }
 }

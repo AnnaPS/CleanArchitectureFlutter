@@ -1,7 +1,9 @@
+import 'package:clean_architecture_app/data/models/episodes_page.dart';
 import 'package:flutter/material.dart';
 
 class ImageCardWidget extends StatelessWidget {
-  const ImageCardWidget({Key key}) : super(key: key);
+  ImageCardWidget(this._episod);
+  final Result _episod;
 
   @override
   Widget build(BuildContext context) {
@@ -10,9 +12,12 @@ class ImageCardWidget extends StatelessWidget {
       width: 100,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
-        child: Image.network(
-          'https://www.vodafone.es/c/statics/imagen/img_OG_Rick_y_Morty_T4_V2.jpg',
-          fit: BoxFit.cover,
+        child: Hero(
+          tag: _episod.id,
+          child: Image.network(
+            'https://www.vodafone.es/c/statics/imagen/img_OG_Rick_y_Morty_T4_V2.jpg',
+            fit: BoxFit.cover,
+          ),
         ),
       ),
     );

@@ -11,38 +11,35 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    var dataProviderWatch = context.watch<DataProvider>();
     return Scaffold(
       appBar: AppBar(
         title: Text('Rick & Morty Episodes'),
       ),
-      body: Consumer<DataProvider>(
-        builder: (_, snapshot, __) {
-          return snapshot.episodePage == null
+      body: dataProviderWatch.episodePage == null
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : dataProviderWatch.errorMessage != null
               ? Center(
-                  child: CircularProgressIndicator(),
+                  child: Text(dataProviderWatch.errorMessage),
                 )
-              : snapshot.errorMessage != null
+              : dataProviderWatch.episodes.isEmpty
                   ? Center(
-                      child: Text(snapshot.errorMessage),
+                      child: Text('Empty list'),
                     )
-                  : snapshot.episodes.isEmpty
-                      ? Center(
-                          child: Text('Empty list'),
-                        )
-                      : Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0, vertical: 8),
-                          child: ListView.builder(
-                            itemCount: snapshot.episodes.length,
-                            itemBuilder: (context, index) {
-                              return EpisodeCardWidget(
-                                snapshot.episodes[index],
-                              );
-                            },
-                          ),
-                        );
-        },
-      ),
+                  : Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0, vertical: 8),
+                      child: ListView.builder(
+                        itemCount: dataProviderWatch.episodes.length,
+                        itemBuilder: (context, index) {
+                          return EpisodeCardWidget(
+                            dataProviderWatch.episodes[index],
+                          );
+                        },
+                      ),
+                    ),
     );
   }
 }

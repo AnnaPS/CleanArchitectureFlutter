@@ -1,6 +1,5 @@
 import 'package:clean_architecture_app/presentation/providers/data_provider.dart';
 import 'package:flutter/material.dart';
-
 import 'chip_widget.dart';
 
 class FooterDetailWidget extends StatelessWidget {
@@ -25,11 +24,14 @@ class FooterDetailWidget extends StatelessWidget {
           spacing: 6.0,
           runSpacing: 6.0,
           children: [
-            ChipWidget(
-                _dataProvider
-                    .characterFromEpisode[_dataProvider.characterSelected]
-                    .species,
-                Colors.green),
+            AnimatedContainer(
+              duration: Duration(milliseconds: 500),
+              child: ChipWidget(
+                  _dataProvider
+                      .characterFromEpisode[_dataProvider.characterSelected]
+                      .species,
+                  Colors.green),
+            ),
             ChipWidget(
                 _dataProvider
                     .characterFromEpisode[_dataProvider.characterSelected]

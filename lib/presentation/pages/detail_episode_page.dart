@@ -19,6 +19,9 @@ class _DetailEpisodePageState extends State<DetailEpisodePage> {
     context
         .read<DataProvider>()
         .getCharacterFromEpisode(widget._episod.characters);
+    if (context.read<DataProvider>().selectedItem == 0) {
+      context.read<DataProvider>().setSelectedItem = 0;
+    }
 
     super.initState();
   }

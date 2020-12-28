@@ -27,11 +27,8 @@ class DataProvider extends ChangeNotifier {
   int _selectedCharacter = 0;
   int get characterSelected => _selectedCharacter;
 
-  double _widht = 100;
-  double get widthContainer => _widht;
-
-  double _height = 100;
-  double get heightContainer => _height;
+  int _selectedItem = 0;
+  int get selectedItem => _selectedItem;
 
   void getEpisodes() async {
     try {
@@ -59,14 +56,13 @@ class DataProvider extends ChangeNotifier {
     }
   }
 
-  void getCharacterSelected(int selected) {
+  set setCharacterSelected(int selected) {
     _selectedCharacter = selected;
     notifyListeners();
   }
 
-  void changeContainerSize(double width, height) {
-    _widht = width;
-    _height = height;
+  set setSelectedItem(int value) {
+    _selectedItem = value;
     notifyListeners();
   }
 }

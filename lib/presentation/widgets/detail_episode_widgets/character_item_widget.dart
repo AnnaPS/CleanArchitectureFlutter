@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 class DetailItemWidget extends StatelessWidget {
   DetailItemWidget(this._dataProvider);
   final DataProvider _dataProvider;
+  final _smallSize = 80.0;
+  final _highSize = 100.0;
 
   @override
   Widget build(BuildContext context) {
@@ -19,19 +21,45 @@ class DetailItemWidget extends StatelessWidget {
             itemBuilder: (context, index) {
               var character = _dataProvider.characterFromEpisode[index];
               return character != null
-                  ? InkWell(
+                  ? GestureDetector(
                       onTap: () {
-                        _dataProvider.getCharacterSelected(index);
-                        _dataProvider.changeContainerSize(150, 150);
+                        _dataProvider.setCharacterSelected = index;
+                        _dataProvider.setSelectedItem = _dataProvider
+                            .characterFromEpisode[
+                                _dataProvider.characterSelected]
+                            .id;
                       },
                       child: Column(
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: CircleAvatar(
-                              radius: 50,
-                              backgroundImage: NetworkImage(
-                                _dataProvider.characterFromEpisode[index].image,
+                            child: AnimatedContainer(
+                              duration: Duration(milliseconds: 500),
+                              curve: Curves.easeInOut,
+                              height: _dataProvider.selectedItem ==
+                                      _dataProvider
+                                          .characterFromEpisode[index].id
+                                  ? _highSize
+                                  : _smallSize,
+                              width: _dataProvider.selectedItem ==
+                                      _dataProvider
+                                          .characterFromEpisode[index].id
+                                  ? _highSize
+                                  : _smallSize,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: Colors.green[400].withOpacity(0.8),
+                                    width: _dataProvider.selectedItem ==
+                                            _dataProvider
+                                                .characterFromEpisode[index].id
+                                        ? 5.0
+                                        : 0.0),
+                                borderRadius: BorderRadius.circular(50),
+                                image: DecorationImage(
+                                  image: NetworkImage(_dataProvider
+                                      .characterFromEpisode[index].image),
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           ),
@@ -47,7 +75,3 @@ class DetailItemWidget extends StatelessWidget {
     );
   }
 }
-// height: _dataProvider.heightContainer,
-//                         width: _dataProvider.widthContainer,
-//                         duration: Duration(milliseconds: 500),
-//                         curve: Curves.easeOut,

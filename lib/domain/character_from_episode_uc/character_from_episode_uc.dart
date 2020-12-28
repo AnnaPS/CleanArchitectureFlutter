@@ -7,6 +7,6 @@ class GetCharacterFromEpisodeUC {
   GetCharacterFromEpisodeUC(this._dataRepository)
       : assert(_dataRepository != null);
 
-  Future<Character> invoke(String url) async =>
+  Future<Character> call(String url) async =>
       await _dataRepository.getCharactersFromEpisode(url);
 }

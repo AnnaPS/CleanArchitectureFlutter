@@ -44,7 +44,7 @@ class DataProvider extends ChangeNotifier {
   void getCharacterFromEpisode(List<String> urls) async {
     try {
       final charactersFuture = urls.map((e) async {
-        return await _getCharacterFromEpisodeUC.invoke(e);
+        return await _getCharacterFromEpisodeUC.call(e);
       }).toList();
 
       final myCharacters = await Future.wait(charactersFuture);
